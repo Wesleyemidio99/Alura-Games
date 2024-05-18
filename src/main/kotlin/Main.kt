@@ -20,4 +20,6 @@ fun main() {
 
     val meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
 
+    println(meuJogo)
+
 }
