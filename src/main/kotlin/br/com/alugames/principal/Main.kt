@@ -1,43 +1,22 @@
 package br.com.alugames.principal
 
-import br.com.alugames.model.InfoJogo
-import com.google.gson.Gson
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse.BodyHandlers
+import br.com.alugames.model.Jogo
+import br.com.alugames.service.ConsumoApi
 import java.util.*
 
 fun main() {
 
     val leitura = Scanner(System.`in`)
     println("Digite um código de jogo para buscar:")
-    val busca = leitura.nextLine()
-    val endereco = "https://www.cheapshark.com/api/1.0/games?id=$busca"
+    val idJogo = leitura.nextLine()
 
-    val client: HttpClient = HttpClient.newHttpClient()
-    val request = HttpRequest.newBuilder().uri(URI.create(endereco)).build()
-    val response = client.send(request, BodyHandlers.ofString())
-    val json = response.body()
-    println(json)
-
-    val gson = Gson()
-
-//    try {
-//        val meuInfoJogo = gson.fromJson(json,br.com.alugames.model.InfoJogo::class.java)
-//        val meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
-//        println(meuJogo)
-//
-//    }catch (ex: JsonSyntaxException){
-//        println("Jogo inexistente, tente outro id.")
-//    }
+    val buscaJogo = ConsumoApi().buscaJogoPorId(idJogo)
 
     var meuJogo:Jogo? = null
 
     // Caso o id seja encontrado, é guardado um secesso dentro da variavel
     val resultado = runCatching {
-        val meuInfoJogo = gson.fromJson(json, InfoJogo::class.java)
-        meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
+        meuJogo = Jogo(buscaJogo.info.title,buscaJogo.info.thumb)
     }
 
     //Verifica se houve falha dentro de resultado
@@ -52,9 +31,14 @@ fun main() {
             println("Digite a descricao do jogo: ")
             val descricaoPersonalizado = leitura.nextLine()
             meuJogo?.descricao = descricaoPersonalizado
+
         }else{
             meuJogo?.descricao = meuJogo?.titulo
         }
         println(meuJogo)
     }
+
+    resultado.onSuccess { println("Busca realizada com sucesso!") }
+
+    leitura.close()
 }
