@@ -52,6 +52,6 @@ fun main() {
         }else{
             meuJogo?.descricao = meuJogo?.titulo
         }
+        println(meuJogo)
     }
-    println(meuJogo)
 }
