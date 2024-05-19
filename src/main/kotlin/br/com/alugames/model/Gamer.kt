@@ -3,14 +3,19 @@ package br.com.alugames.model
 data class Gamer(val nome:String, val email:String){
     var dataNascimento:String? = null
     var usuario:String? = null
-    val idInterno:Int? = null
+    var idInterno:String? = null
 
     constructor(nome: String, email:String,dataNascimento:String, usuario:String):this(nome,email){
         this.dataNascimento = dataNascimento
         this.usuario = usuario
     }
     override fun toString(): String {
-        return "Gamer(nome='$nome', email='$email', dataNascimento=$dataNascimento, usuario=$usuario, idInterno=$idInterno)"
+        return "Usuario:\n" +
+                "Nome: $nome\n" +
+                "Email: $email\n" +
+                "DataNascimento: $dataNascimento\n" +
+                "Usuario: $usuario\n" +
+                "IdInterno: $idInterno"
     }
 
 }
