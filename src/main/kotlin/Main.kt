@@ -21,16 +21,26 @@ fun main() {
 
     val gson = Gson()
 
+//    try {
+//        val meuInfoJogo = gson.fromJson(json,InfoJogo::class.java)
+//        val meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
+//        println(meuJogo)
+//
+//    }catch (ex: JsonSyntaxException){
+//        println("Jogo inexistente, tente outro id.")
+//    }
 
 
-
-    try {
+    // Caso o id seja encontrado, é guardado um secesso dentro da variavel
+    val resultado = runCatching {
         val meuInfoJogo = gson.fromJson(json,InfoJogo::class.java)
         val meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
         println(meuJogo)
+    }
 
-    }catch (ex: JsonSyntaxException){
-        println("Jogo inexistente, tente outro")
+    //Verifica se houve falha dentro de resultado
+    resultado.onFailure {
+        println("Jogo inexistente, tente outro id.")
     }
 
 }
