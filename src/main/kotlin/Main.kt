@@ -1,10 +1,9 @@
 import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse.BodyHandlers
-import java.util.Scanner
+import java.util.*
 
 fun main() {
 
@@ -30,14 +29,12 @@ fun main() {
 //        println("Jogo inexistente, tente outro id.")
 //    }
 
-
     var meuJogo:Jogo? = null
 
     // Caso o id seja encontrado, é guardado um secesso dentro da variavel
     val resultado = runCatching {
         val meuInfoJogo = gson.fromJson(json,InfoJogo::class.java)
         meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
-        println(meuJogo)
     }
 
     //Verifica se houve falha dentro de resultado
@@ -56,5 +53,5 @@ fun main() {
             meuJogo?.descricao = meuJogo?.titulo
         }
     }
-
+    println(meuJogo)
 }
