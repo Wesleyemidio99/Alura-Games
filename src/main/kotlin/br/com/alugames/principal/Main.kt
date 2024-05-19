@@ -1,3 +1,6 @@
+package br.com.alugames.principal
+
+import br.com.alugames.model.InfoJogo
 import com.google.gson.Gson
 import java.net.URI
 import java.net.http.HttpClient
@@ -21,7 +24,7 @@ fun main() {
     val gson = Gson()
 
 //    try {
-//        val meuInfoJogo = gson.fromJson(json,InfoJogo::class.java)
+//        val meuInfoJogo = gson.fromJson(json,br.com.alugames.model.InfoJogo::class.java)
 //        val meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
 //        println(meuJogo)
 //
@@ -33,7 +36,7 @@ fun main() {
 
     // Caso o id seja encontrado, é guardado um secesso dentro da variavel
     val resultado = runCatching {
-        val meuInfoJogo = gson.fromJson(json,InfoJogo::class.java)
+        val meuInfoJogo = gson.fromJson(json, InfoJogo::class.java)
         meuJogo = Jogo(meuInfoJogo.info.title,meuInfoJogo.info.thumb)
     }
 
